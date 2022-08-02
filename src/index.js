@@ -38,8 +38,31 @@ const MORSE_TABLE = {
 };
 
 function decode(expr) {
-    // write your solution here
+expr = expr.split('');
+
+const newExpr =[];
+for (let i = 0; i < expr.length; i = i + 10) {
+    newExpr.push(expr.slice(i, i + 10))
 }
+
+const newMorse = [];
+newExpr.forEach(tens => {
+    letter = '';
+    for (i = 9; i > 0; i = i - 2){
+        if (tens[i-1] + tens[i] == '10') {letter = '.' + letter};
+        if (tens[i-1] + tens[i] == '11') {letter = '-' + letter};
+        if (tens[i-1] + tens[i] == '**') {letter = '' + letter};
+    }
+    newMorse.push(letter);
+})
+
+result = '';
+newMorse.forEach(letter => {
+    if (!MORSE_TABLE[letter]){result += ' '}
+    else result += MORSE_TABLE[letter];
+})
+return result;
+};
 
 module.exports = {
     decode
